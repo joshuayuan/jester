@@ -1,0 +1,25 @@
+{
+  "name": "jester",
+  "version": "1.0.0",
+  "description": "On the Pi:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuayuan/jester.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuayuan/jester/issues"
+  },
+  "homepage": "https://github.com/joshuayuan/jester#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket-io": "^1.0.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  }
+}
