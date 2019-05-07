@@ -9,6 +9,13 @@ app.use(express.static('web'));
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });
+app.get('/web-script.js', function(req, res) {
+    res.sendFile(__dirname + "/web-script.js");
+});
+app.get('/jquery.js', function(req, res) {
+    console.log("wut");
+    res.sendFile(__dirname + "/lib/jquery.min.js");
+});
 
 io.on("connection", function(socket) {
     console.log("a client connected");
