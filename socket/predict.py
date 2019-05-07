@@ -86,7 +86,7 @@ class Predictor:
             # do someting with this str(code). code is unicode
             print(str(prediction) + " is " + str(code))
             # self.sock.send(str(code))
-            sio.emit("pi:server", {"code": str(code)})
+            sio.emit("pi:server", {"code": str(code), "name": str(prediction[0])})
             print(code)
             print("Waiting 1 seconds now.")
             time.sleep(1)
