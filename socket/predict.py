@@ -3,16 +3,25 @@ import numpy as np
 from sklearn import svm
 import pickle
 import time
+import bluetooth
 
 
 class Predictor:
 
     def __init__(self):
+        self.gestures = {"arm_down.txt": "0", "arm_straight.txt": "1", "arm_across.txt": "2", "elbow_table.txt": "3"}
 
         self.sensor1 = mpu6050(0x69)
         self.sensor2 = mpu6050(0x68)
 
         self.svm_model = None
+        """
+        MAC_ADDR = "hardcode"
+        port = 1
+        self.sock = bluetooth.BluetoothSocket (bluetooth.RFCOMM )
+        self.sock.connect((MAC_ADDR, port))
+        """
+
 
     def load_model(self):
         pickle_fname = raw_input("Pickle file: ")
@@ -73,7 +82,12 @@ class Predictor:
         while True:
             measurement = self.get_measurement()
             prediction = self.predict(model, measurement)
-            print(prediction)
+            code = self.gestures[prediction.flat[0]]
+            # do someting with this str(code). code is unicode
+            print(str(prediction) + " is " + str(code))
+            # self.sock.send(str(code))
+            print(code)
             print("Waiting 1 seconds now.")
             time.sleep(1)
+
 
