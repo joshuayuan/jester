@@ -26,10 +26,18 @@ app.get('/custom.css', function(req, res) {
     res.sendFile(__dirname + "/custom.css");
 });
 
+var old_code = -1;
 io.on("connection", function(socket) {
     console.log("a client connected");
     socket.on("pi:server", (data) => {
-        console.log("server received from pi: " + data.code);
-        io.emit("server:website", data);
+        if (data.code != old_code) {
+            console.log("server received from pi: " + data.code);
+            io.emit("server:website", data);
+            old_code = data.code;
+        }
+    });
+    socket.on("disconnect", () => {
+        console.log("client disconnected");
+        old_code = -1;
     });
 });

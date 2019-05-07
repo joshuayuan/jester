@@ -2,3 +2,9 @@
   text-align: center;
   margin: 10%;
 }
+
+img {
+  display: none;
+  margin: auto;
+}
+
