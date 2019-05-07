@@ -14,6 +14,7 @@ def load_model():
     pickle_fname = raw_input("Pickle file: ")
     svm_model = pickle.load(open(pickle_fname, "rb"))
     print("Done loading pickle file into model.")
+    return svm_model
 
 def get_measurement():
     """
@@ -38,7 +39,7 @@ def get_steady_measurement():
     data = get_measurement()
     for i in range(30):
         data = np.vstack((data, get_measurement()))
-        time.sleep(100)
+        time.sleep(.1)
 
     stds = np.std(data, axis=0)
     while True:
@@ -53,7 +54,7 @@ def get_steady_measurement():
         data = np.vstack((data, get_measurement()))
         data = np.delete(data, (0), axis=0)
 
-        time.sleep(100)
+        time.sleep(.1)
 
 def predict(model, point):
     return model.predict(point)
@@ -62,14 +63,13 @@ def predict(model, point):
 def main():
 
     #load model
-    load_model()
-   
+    model = load_model()
 
     while True:
-        keyword = raw_input("Press enter to get prediction.")
-        if keyword == "":
-            measurement = get_measurement()
-            prediction = svm_model.predict(measurement)
-            print("From " + str(measurement) + " we predict " + str(prediction))
+        prediction = predict(model, get_steady_measurement())
+        print(prediction)
+        print("Waiting 3 seconds now.")
+        time.sleep(3)
 
-
+if __name__ == "__main__":
+    main()
