@@ -39,13 +39,13 @@ def get_steady_measurement():
     data = get_measurement()
     for i in range(30):
         data = np.vstack((data, get_measurement()))
-        time.sleep(.1)
+        time.sleep(.05)
 
     stds = np.std(data, axis=0)
     while True:
         success = 1 # 0 is fail.
         for s in stds:
-            if s > 1:
+            if s > 3:
                 success = 0
                 break
         if success == 1:
@@ -54,7 +54,7 @@ def get_steady_measurement():
         data = np.vstack((data, get_measurement()))
         data = np.delete(data, (0), axis=0)
 
-        time.sleep(.1)
+        time.sleep(.05)
 
 def predict(model, point):
     return model.predict(point)
@@ -63,13 +63,15 @@ def predict(model, point):
 def main():
 
     #load model
-    model = load_model()
+    # model = load_model()
+    model = pickle.load(open("pickle_elnaz_model.sav", "rb"))
 
     while True:
-        prediction = predict(model, get_steady_measurement())
+        measurement = get_measurement()
+        prediction = predict(model, measurement)
         print(prediction)
-        print("Waiting 3 seconds now.")
-        time.sleep(3)
+        print("Waiting 1 seconds now.")
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
