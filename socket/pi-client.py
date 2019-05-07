@@ -1,4 +1,7 @@
 import socketio
+import  predict
+
+print(pred)
 
 sio = socketio.Client()
 
@@ -17,5 +20,6 @@ def on_disconnect():
 
 if __name__ == "__main__":
     sio.connect("http://joshuayuan.me:8080")
+
 
     sio.emit("pi:server", {"msg": "a cool message!!!"})
