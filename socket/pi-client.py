@@ -2,6 +2,7 @@ import socketio
 import  predict
 
 sio = socketio.Client()
+pr = predict.Predictor()
 
 @sio.on("connect")
 def on_connect():
@@ -19,4 +20,5 @@ def on_disconnect():
 if __name__ == "__main__":
     sio.connect("http://joshuayuan.me:8080")
 
-    sio.emit("pi:server", {"msg": "actually new message!"})
+    pr.start(sio)
+    # sio.emit("pi:server", {"msg": "actually new message!"})

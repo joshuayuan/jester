@@ -73,7 +73,7 @@ class Predictor:
         return model.predict(point)
 
 
-    def start(self):
+    def start(self, sio):
 
         #load model
         # model = self.load_model()
@@ -86,6 +86,7 @@ class Predictor:
             # do someting with this str(code). code is unicode
             print(str(prediction) + " is " + str(code))
             # self.sock.send(str(code))
+            sio.emit("pi:server", {"code": str(code)})
             print(code)
             print("Waiting 1 seconds now.")
             time.sleep(1)
