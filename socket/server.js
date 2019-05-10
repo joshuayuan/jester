@@ -26,6 +26,9 @@ app.get('/custom.css', function(req, res) {
     res.sendFile(__dirname + "/custom.css");
 });
 
+app.use(express.static(__dirname + '/public'));
+
+
 var old_code = -1;
 io.on("connection", function(socket) {
     console.log("a client connected");
